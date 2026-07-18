@@ -75,8 +75,8 @@ CREATE TABLE Tribunale (
 
 CREATE TABLE Giudice (
     Codice_Fiscale_Giudice VARCHAR(16) PRIMARY KEY,
-    Nome_Giudice VARCHAR(255), -- Aumentato da 16 a 255
-    Cognome_Giudice VARCHAR(255), -- Aumentato da 16 a 255
+    Nome_Giudice VARCHAR(255), 
+    Cognome_Giudice VARCHAR(255), 
     Data_Nascita_Giudice DATE
 );
 
@@ -126,12 +126,12 @@ CREATE TABLE Condanna (
     Codice_Fiscale_Giudice VARCHAR(16),
     ID_Pena INT,
     Codice_Fiscale_Detenuto VARCHAR(16),
-    ID_Tribunale INT, -- AGGIUNTA COLONNA MANCANTE
+    ID_Tribunale INT, 
     FOREIGN KEY (Numero_Seriale) REFERENCES Processo(Numero_Seriale),
     FOREIGN KEY (Codice_Fiscale_Giudice) REFERENCES Giudice(Codice_Fiscale_Giudice),
     FOREIGN KEY (ID_Tribunale) REFERENCES Tribunale(ID_Tribunale),
-    FOREIGN KEY (ID_Pena) REFERENCES Pena(ID_Pena), -- Aggiunto vincolo coerente
-    FOREIGN KEY (Codice_Fiscale_Detenuto) REFERENCES Detenuto(Codice_Fiscale_Detenuto) -- Aggiunto vincolo coerente
+    FOREIGN KEY (ID_Pena) REFERENCES Pena(ID_Pena), 
+    FOREIGN KEY (Codice_Fiscale_Detenuto) REFERENCES Detenuto(Codice_Fiscale_Detenuto) 
 );
 
 CREATE TABLE Risiede (
