@@ -1,12 +1,10 @@
 /* Creazione del database */
-
 CREATE DATABASE IF NOT EXISTS DB_Antimafia;
 
 /* Utilizza il database */
 USE DB_Antimafia;
 
 /* Disabilita i check delle chiavi esterne temporaneamente */ 
-
 SET foreign_key_checks = 0;
 
 /* Eliminare le tabelle esistenti */ 
@@ -77,9 +75,9 @@ CREATE TABLE Tribunale (
 
 CREATE TABLE Giudice (
     Codice_Fiscale_Giudice VARCHAR(16) PRIMARY KEY,
-    Nome_Giudice VARCHAR(16),
-     Cognome_Giudice VARCHAR(16),
-     Data_Nascita_Giudice DATE
+    Nome_Giudice VARCHAR(255), -- Aumentato da 16 a 255
+    Cognome_Giudice VARCHAR(255), -- Aumentato da 16 a 255
+    Data_Nascita_Giudice DATE
 );
 
 CREATE TABLE Vittima (
@@ -94,7 +92,7 @@ CREATE TABLE Vittima (
 CREATE TABLE Famiglia (
     Nome_Famiglia VARCHAR(255) PRIMARY KEY,
     Data_Fondazione DATE,
-   Numero_Componenti INT,
+    Numero_Componenti INT,
     Capo_Famiglia VARCHAR(255),
     Nome_Clan VARCHAR(255),
     FOREIGN KEY (Nome_Clan) REFERENCES Clan_Mafioso(Nome_Clan)
@@ -128,9 +126,12 @@ CREATE TABLE Condanna (
     Codice_Fiscale_Giudice VARCHAR(16),
     ID_Pena INT,
     Codice_Fiscale_Detenuto VARCHAR(16),
+    ID_Tribunale INT, -- AGGIUNTA COLONNA MANCANTE
     FOREIGN KEY (Numero_Seriale) REFERENCES Processo(Numero_Seriale),
     FOREIGN KEY (Codice_Fiscale_Giudice) REFERENCES Giudice(Codice_Fiscale_Giudice),
-    FOREIGN KEY (ID_Tribunale) REFERENCES Tribunale(ID_Tribunale)
+    FOREIGN KEY (ID_Tribunale) REFERENCES Tribunale(ID_Tribunale),
+    FOREIGN KEY (ID_Pena) REFERENCES Pena(ID_Pena), -- Aggiunto vincolo coerente
+    FOREIGN KEY (Codice_Fiscale_Detenuto) REFERENCES Detenuto(Codice_Fiscale_Detenuto) -- Aggiunto vincolo coerente
 );
 
 CREATE TABLE Risiede (
@@ -157,5 +158,3 @@ CREATE TABLE Programma_di_Reinserimento (
     Codice_Fiscale_Detenuto VARCHAR(16),
     FOREIGN KEY (Codice_Fiscale_Detenuto) REFERENCES Detenuto(Codice_Fiscale_Detenuto)
 );
-
-  
